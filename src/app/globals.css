@@ -1,27 +1,62 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
   }
 }
 
+html,
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  @apply p-0 m-0 bg-black text-white overflow-x-hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+p,
+pre,
+ul,
+li {
+  @apply capitalize m-0;
+}
+
+h1 {
+  @apply font-extrabold;
+}
+
+h2 {
+  @apply font-bold;
+}
+
+h3 {
+  @apply font-semibold;
+}
+
+h4 {
+  @apply font-medium;
+}
+
+h5 {
+  @apply font-normal;
+}
+
+h6 {
+  @apply font-light;
+}
+
+a {
+  @apply bg-inherit no-underline outline-0;
+}
+
+::-webkit-scrollbar {
+  @apply w-0 bg-transparent;
+}
+* {
+  @apply box-border;
 }
