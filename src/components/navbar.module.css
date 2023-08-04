@@ -1,0 +1,44 @@
+.container {
+  @apply fixed z-50 w-full top-0 bg-gradient-to-b from-black to-transparent;
+}
+
+.wrapper {
+    @apply fixed flex p-5
+}
+
+.logoLink {
+}
+
+.logoWrapper {
+  @apply leading-4 text-3xl font-extrabold text-red-600 -skew-x-12;
+}
+
+.navItems {
+  @apply inline;
+}
+
+.navItem1 {
+  @apply inline;
+}
+
+.navItem2 {
+  @apply inline;
+}
+
+.navContainer {
+}
+
+.usernameButton {
+}
+
+.username {
+}
+
+.navDrowdown {
+}
+
+.signOutLink {
+}
+
+.lineWrapper {
+}

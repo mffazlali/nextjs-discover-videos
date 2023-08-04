@@ -1,0 +1,51 @@
+.container {
+    @apply relative w-full h-[80vh] 
+}
+
+.contentWrapper {
+    @apply absolute w-full h-full z-10
+}
+
+.content {
+    @apply flex justify-start flex-col pl-16 mt-24 h-full
+}
+
+.nseriesWrapper{
+    @apply flex mb-6
+}
+
+.firstLetter{
+    @apply leading-4 text-6xl font-extrabold text-red-600
+}
+
+.series{
+    @apply leading-5 text-sm font-bold text-gray-500 self-center
+}
+
+.title {
+    @apply text-6xl font-medium
+}
+
+.subTitle {
+    @apply mt-2
+}
+
+.warpperButton {
+    @apply mt-6
+}
+
+.playButton {
+    @apply flex items-end bg-none bg-transparent m-0 rounded-lg px-6 py-2 outline-0 normal-case border-0 font-extrabold bg-white text-black hover:bg-gray-200
+}
+
+.playText{
+    @apply text-black text-lg
+}
+
+.imageWrapper {
+    @apply relative w-full h-full
+}
+
+.image {
+    @apply absolute bg-[url('../../public/static/banner-image.webp')] w-full h-full bg-cover  bg-no-repeat bg-center
+}
