@@ -1,18 +1,27 @@
 .container {
-  @apply fixed z-50 w-full top-0 bg-gradient-to-b from-black to-transparent;
+  @apply fixed z-50 w-full top-0 bg-gradient-to-b from-black via-black/60 to-transparent;
 }
 
 .wrapper {
-    @apply fixed w-full flex p-5
+    @apply relative w-full flex py-5 px-20
 }
 
 .logoLink {
-  @apply flex
+  @apply flex 
 }
 
-.logoWrapper {
-  @apply leading-4 text-3xl font-extrabold text-red-600 -skew-x-12;
+.logoWrapper{
+  @apply flex font-sans leading-4 text-6xl font-bold text-orange-700 tracking-tighter
 }
+
+.logoFirstTitle {
+  @apply -skew-y-[2deg];
+}
+
+.logoSecondTitle {
+  @apply skew-y-[2deg];
+}
+
 
 .navItems {
   @apply flex justify-between ml-60 list-none font-bold text-base leading-4;
@@ -31,6 +40,7 @@
 }
 
 .usernameButton {
+  @apply flex items-center
 }
 
 .username {
@@ -38,7 +48,7 @@
 }
 
 .navDrowdown {
-  @apply absolute px-3 py-2 bg-black text-white rounded-sm
+  @apply absolute px-3 py-2 bg-black text-white rounded-sm transition-all
 }
 
 .signOutLink {

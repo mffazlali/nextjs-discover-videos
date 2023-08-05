@@ -333,6 +333,7 @@ module.exports = {
         '"Courier New"',
         'monospace',
       ],
+      'roboto-mono': ['var(--font-roboto-mono)'],
     },
     fontSize: {
       xs: ['0.75rem', { lineHeight: '1rem' }],

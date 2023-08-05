@@ -1,0 +1,19 @@
+.container {
+    @apply mr-1 cursor-pointer inline
+}
+
+.imageWrapper {
+    @apply relative hover:z-10 inline-block object-cover object-center rounded overflow-hidden inset-0
+}
+
+.smItem {
+    @apply w-[300px] min-w-[300px] h-[170px] min-h-[170px]
+}
+
+.mdItem {
+    @apply w-[158px] min-w-[158px] h-[280px] min-h-[280px]
+}
+
+.lgItem {
+    @apply w-[218px] min-w-[218px] h-[434px] min-h-[434px]
+}

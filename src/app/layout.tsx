@@ -1,9 +1,10 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import { Roboto_Slab } from 'next/font/google'
+import { Roboto_Slab,Roboto_Mono } from 'next/font/google'
 import 'material-icons/iconfont/material-icons.css'
 
-const roboto_Slab = Roboto_Slab({ subsets: ['latin'],variable:'--font-roboto-slab' })
+const roboto_slab = Roboto_Slab({ subsets: ['latin'],variable:'--font-roboto-slab',weight:'800' })
+const roboto_mono = Roboto_Mono({ subsets: ['latin'],variable:'--font-roboto-mono' })
 
 export const metadata: Metadata = {
   title: "discover videos",
@@ -17,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={roboto_Slab.className}>{children}</body>
+      <body className={roboto_slab.className}>{children}</body>
     </html>
   )
 }
