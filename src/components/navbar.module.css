@@ -3,10 +3,11 @@
 }
 
 .wrapper {
-    @apply fixed flex p-5
+    @apply fixed w-full flex p-5
 }
 
 .logoLink {
+  @apply flex
 }
 
 .logoWrapper {
@@ -14,30 +15,34 @@
 }
 
 .navItems {
-  @apply inline;
+  @apply flex justify-between ml-60 list-none font-bold text-base leading-4;
 }
 
 .navItem1 {
-  @apply inline;
+  @apply cursor-pointer
 }
 
 .navItem2 {
-  @apply inline;
+  @apply ml-5 cursor-pointer
 }
 
 .navContainer {
+  @apply flex justify-end ml-auto
 }
 
 .usernameButton {
 }
 
 .username {
+  @apply font-bold text-base leading-4
 }
 
 .navDrowdown {
+  @apply absolute px-3 py-2 bg-black text-white rounded-sm
 }
 
 .signOutLink {
+  @apply capitalize font-bold text-base leading-4 cursor-pointer z-50
 }
 
 .lineWrapper {

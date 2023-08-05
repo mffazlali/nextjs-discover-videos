@@ -1,6 +1,22 @@
+'use client'
+import Link from 'next/link'
 import styles from './navbar.module.css'
+import {useRouter} from 'next/navigation'
 const Navbar = (props: any) => {
+  const router=useRouter()
   const { username } = props
+
+  const handleOnClickHome=(e:any)=>{
+    e.preventDefault()
+    router.push('/')
+  }
+
+  const handleOnClickMyList=(e:any)=>{
+    e.preventDefault()
+    router.push('/browse/my-list')
+  }
+
+
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
@@ -8,8 +24,8 @@ const Navbar = (props: any) => {
           <div className={styles.logoWrapper}>NETFLIX</div>
         </a>
         <ul className={styles.navItems}>
-          <li className={styles.navItem1}>home</li>
-          <li className={styles.navItem2}>my list</li>
+          <li className={styles.navItem1} onClick={handleOnClickHome}>home</li>
+          <li className={styles.navItem2} onClick={handleOnClickMyList}>my list</li>
         </ul>
         <nav className={styles.navContainer}>
           <div>
@@ -18,7 +34,7 @@ const Navbar = (props: any) => {
             </button>
             <div className={styles.navDrowdown}>
               <div>
-                <a className={styles.signOutLink}>sign out</a>
+                <Link href='/login' className={styles.signOutLink}>sign out</Link>
                 <div className={styles.lineWrapper}></div>
               </div>
             </div>
