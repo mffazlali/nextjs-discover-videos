@@ -1,0 +1,7 @@
+.container {
+    @apply relative px-5
+}
+
+.cardWrapper {
+    @apply flex py-3 my-2 w-full overflow-x-auto overflow-y-hidden scroll-smooth
+}

@@ -3,7 +3,7 @@
 }
 
 .imageWrapper {
-    @apply relative hover:z-10 inline-block object-cover object-center rounded overflow-hidden inset-0
+    @apply relative hover:z-[100] hover:overflow-hidden hover:rounded-lg inline-block object-cover object-center rounded-lg overflow-hidden inset-0 select-none w-full
 }
 
 .smItem {

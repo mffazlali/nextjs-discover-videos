@@ -55,8 +55,9 @@ a {
 }
 
 ::-webkit-scrollbar {
-  @apply w-0 bg-transparent;
+  @apply w-0 bg-transparent scroll-smooth;
 }
+
 * {
   @apply box-border;
 }

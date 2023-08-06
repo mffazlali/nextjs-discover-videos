@@ -1,3 +1,7 @@
-.container{
+.container {
     @apply p-0 m-0
+}
+
+.sectionCardWrapper {
+    @apply mt-10 mx-10
 }
