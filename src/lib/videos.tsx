@@ -4,6 +4,7 @@ export const getVideos = async(search:string) => {
   const input=`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${search}&key=${youtubeAPIKey}`
   const response=await fetch(input)
   const jsonResponse=await response.json()
+  console.log({jsonResponse})
 
   const videos = [...jsonResponse.items].map((video) => {
     return {
