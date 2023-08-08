@@ -4,6 +4,7 @@ import Banner from '@/components/banner/banner'
 import Navbar from '@/components/navbar/navbar'
 import Card from '@/components/card/card'
 import SectionCards from '@/components/card/section-cards'
+import { getVideos } from '@/lib/videos'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -11,23 +12,8 @@ export const metadata: Metadata = {
 }
 
 const Home = () => {
-  const videos = [
-    { imgUrl: '/static/background.png' },
-    { imgUrl: '/static/background.png' },
-    { imgUrl: '/static/background.png' },
-    { imgUrl: '/static/background.png' },
-    { imgUrl: '/static/background.png' },
-    { imgUrl: '/static/background.png' },
-    { imgUrl: '/static/background.png' },
-    { imgUrl: '/static/background.png' },
-    { imgUrl: '/static/background.png' },
-    { imgUrl: '/static/background.png' },
-    { imgUrl: '/static/background.png' },
-    { imgUrl: '/static/background.png' },
-    { imgUrl: '/static/background.png' },
-    { imgUrl: '/static/background.png' },
-    { imgUrl: '/static/background.png' },
-  ]
+  const videos = getVideos()
+  console.log({videos})
   return (
     <div className={styles.container}>
       <Navbar username="mf.fazlali@gmail.com" />

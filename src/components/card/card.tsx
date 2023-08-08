@@ -10,6 +10,7 @@ const Card = (props: any) => {
     imgUrl = 'https://images.unsplash.com/photo-1485846234645-a62644f84728?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1159&q=80',
     size = 'medium',
     id,
+    name
   } = props
   const classMap = {
     small: styles.smItem,
@@ -35,7 +36,7 @@ const Card = (props: any) => {
           onError={onErrorHandler}
           src={imgSrc}
           fill={true}
-          alt=""
+          alt={name}
           unoptimized={true}
         ></Image>
       </motion.div>
