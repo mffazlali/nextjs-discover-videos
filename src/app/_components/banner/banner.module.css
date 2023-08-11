@@ -46,11 +46,11 @@
     @apply relative w-full h-full
 }
 
-.image {
-    @apply absolute bg-indigo-400 w-full h-full bg-cover  bg-no-repeat bg-center
-}
-
 /* .image {
-    @apply absolute bg-[url('../../../public/static/banner-image.webp')] w-full h-full bg-cover  bg-no-repeat bg-center
+    @apply absolute bg-indigo-400 w-full h-full bg-cover  bg-no-repeat bg-center
 } */
+
+.image {
+    @apply absolute bg-[url('../../../../public/static/banner-image.webp')] w-full h-full bg-cover  bg-no-repeat bg-center
+}
 

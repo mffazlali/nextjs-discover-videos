@@ -2,7 +2,6 @@
 const nextConfig = {
   images: {
     domains: ['images.unsplash.com', 'i.ytimg.com'],
-    runtime: 'nodejs',
   },
 }
 
