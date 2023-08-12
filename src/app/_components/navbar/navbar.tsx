@@ -3,6 +3,7 @@ import Link from 'next/link'
 import styles from './navbar.module.css'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import Logo from '../logo/logo'
 const Navbar = (props: any) => {
   const router = useRouter()
   const [showDropdown, setShowDropDown] = useState(false)
@@ -26,12 +27,7 @@ const Navbar = (props: any) => {
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
-        <a className={styles.logoLink}>
-          <div className={styles.logoWrapper}>
-            <span className={styles.logoFirstTitle}>NET</span>
-            <span className={styles.logoSecondTitle}>FLIX</span>
-          </div>
-        </a>
+        <Logo/>
         <ul className={styles.navItems}>
           <li className={styles.navItem1} onClick={handleOnClickHome}>
             home

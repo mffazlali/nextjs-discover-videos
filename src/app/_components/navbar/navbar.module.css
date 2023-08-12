@@ -3,25 +3,8 @@
 }
 
 .wrapper {
-    @apply relative w-full flex py-5 px-20
+    @apply relative w-full flex
 }
-
-.logoLink {
-  @apply flex 
-}
-
-.logoWrapper{
-  @apply flex font-sans leading-4 text-6xl font-bold text-orange-700 tracking-tighter
-}
-
-.logoFirstTitle {
-  @apply -skew-y-[2deg];
-}
-
-.logoSecondTitle {
-  @apply skew-y-[2deg];
-}
-
 
 .navItems {
   @apply flex justify-between ml-60 list-none font-bold text-base leading-4;

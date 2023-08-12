@@ -1,0 +1,11 @@
+.container {
+    @apply relative flex flex-col bg-[url('../../../public/static/bg-login.jpg')] before:bg-transparent before:bg-gradient-to-b before:from-white/5 before:to-white/5 before:absolute z-10 before:z-50 before:w-screen before:h-screen w-screen h-screen
+}
+
+.signIn{
+    @apply relative w-full h-full flex justify-center items-center
+}
+
+.signInWrapper{
+    @apply  w-[33.33333%] h-[400px] rounded-lg py-3 px-2 bg-transparent bg-gradient-to-b from-white/5 to-white/5
+}
