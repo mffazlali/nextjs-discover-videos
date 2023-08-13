@@ -1,5 +1,5 @@
 .container{
-  @apply relative w-full flex py-5 px-20
+  @apply relative w-full flex py-5 px-20 z-20
  
 }
 
@@ -8,7 +8,7 @@
   }
   
   .logoWrapper{
-    @apply flex font-sans leading-4 text-6xl font-bold text-orange-700 tracking-tighter
+    @apply flex font-sans leading-4 text-6xl font-bold text-red-700 tracking-tighter
   }
   
   .logoFirstTitle {

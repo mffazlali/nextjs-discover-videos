@@ -1,5 +1,5 @@
 .container {
-    @apply relative flex flex-col bg-[url('../../../public/static/bg-login.jpg')] before:bg-transparent before:bg-gradient-to-b before:from-white/5 before:to-white/5 before:absolute z-10 before:z-50 before:w-screen before:h-screen w-screen h-screen
+    @apply relative flex flex-col bg-[url('../../../public/static/bg-login.jpg')] w-screen h-screen before:bg-transparent before:bg-gradient-to-b before:from-black/70 before:to-black/70 before:absolute before:z-10 before:w-screen before:h-screen
 }
 
 .signIn{
@@ -7,5 +7,31 @@
 }
 
 .signInWrapper{
-    @apply  w-[33.33333%] h-[400px] rounded-lg py-3 px-2 bg-transparent bg-gradient-to-b from-white/5 to-white/5
+    @apply flex flex-col z-30 w-[33.33333%] h-[400px] rounded-lg py-16 px-20 bg-transparent bg-gradient-to-b from-black/80 to-black/80
 }
+
+.signInTitle{
+    @apply text-3xl font-bold leading-7 select-none
+}
+
+.emailWrapper{
+    @apply mt-10
+}
+
+.email{
+@apply text-xl font-normal pb-4 pt-2 px-2 rounded focus:outline-sky-500 transition-all text-black
+}
+
+.errorMsg{
+
+}
+
+.buttonWrapper{
+@apply mt-10
+}
+
+.button{
+ @apply bg-red-700 capitalize text-white rounded-lg w-full py-2 font-bold text-xl transition-all hover:bg-red-800
+}
+
+
