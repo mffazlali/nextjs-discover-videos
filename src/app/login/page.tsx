@@ -4,6 +4,7 @@ import styles from './styles.module.css'
 import Logo from '../_components/logo/logo'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { magic } from '../_lib/magic'
 
 export const metadata: Metadata = {
   title: 'discover videos',
@@ -11,26 +12,41 @@ export const metadata: Metadata = {
 }
 
 const SignIn = () => {
-  const router=useRouter()
+  const router = useRouter()
   const [email, setEmail] = useState('')
   const [errorMsg, setErrorMsg] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+
+  const isLoggedIn=async()=>{
+    const isLoggedIn = await magic?.user.isLoggedIn();
+    return isLoggedIn
+  }
   const handleOnChangeEmail = (event: any) => {
     setEmail(event.target.value)
   }
 
-  const handleSignInButton = () => {
+  const handleSignInButton = async (event: any) => {
+    event.preventDefault()
     if (email) {
-      if (email === 'mf.fazlali@gmail.com') {
+      try {
         setIsLoading(true)
-        router.push('/')
-      } else {
-        setIsLoading(true)
-        setErrorMsg('invalid email address')
+        await magic?.auth.loginWithEmailOTP({ email })
+        const isLoggedInResult=await isLoggedIn()
+        if (isLoggedInResult) {
+          const userMetadata = await magic?.user.getMetadata();
+          setIsLoading(false)
+          router.push('/')
+        } else {
+          setIsLoading(false)
+          setErrorMsg('something we wrong logging in')
+        }
+      } catch (err) {
+        setIsLoading(false)
+        console.log(err)
+        setErrorMsg('something we wrong logging in')
       }
     } else {
-      setIsLoading(true)
-      setErrorMsg('someting we went email address')
+      setErrorMsg('Enter a valid email address')
     }
   }
 
@@ -51,7 +67,7 @@ const SignIn = () => {
           </div>
           <div className={styles.buttonWrapper}>
             <button onClick={handleSignInButton} className={styles.button}>
-              {isLoading?'loading...':'sign in'}
+              {isLoading ? 'loading...' : 'sign in'}
             </button>
           </div>
         </div>

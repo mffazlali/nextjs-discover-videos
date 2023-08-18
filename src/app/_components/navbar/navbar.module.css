@@ -7,7 +7,7 @@
 }
 
 .navItems {
-  @apply flex justify-between ml-60 list-none font-bold text-base leading-4;
+  @apply flex justify-start list-none font-bold text-base leading-4 items-center;
 }
 
 .navItem1 {
@@ -19,7 +19,7 @@
 }
 
 .navContainer {
-  @apply flex justify-end ml-auto
+  @apply flex justify-end items-center ml-auto
 }
 
 .usernameButton {
@@ -35,7 +35,7 @@
 }
 
 .signOutLink {
-  @apply capitalize font-bold text-base leading-4 cursor-pointer z-50
+  @apply capitalize font-bold text-base leading-4 cursor-pointer z-50 underline
 }
 
 .lineWrapper {

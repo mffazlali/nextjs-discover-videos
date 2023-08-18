@@ -1,5 +1,5 @@
 .container{
-  @apply relative w-full flex py-5 px-20 z-20
+  @apply relative w-auto flex py-5 px-20 z-20
  
 }
 

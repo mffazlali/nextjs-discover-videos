@@ -4,6 +4,7 @@ import styles from './navbar.module.css'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import Logo from '../logo/logo'
+import { magic } from '@/app/_lib/magic'
 const Navbar = (props: any) => {
   const router = useRouter()
   const [showDropdown, setShowDropDown] = useState(false)
@@ -23,6 +24,11 @@ const Navbar = (props: any) => {
     e.preventDefault()
     setShowDropDown(!showDropdown)
   }
+
+  const handleLogout = async () => {
+    await magic.user.logout();
+    router.push('/login')
+  };
 
   return (
     <div className={styles.container}>
@@ -52,9 +58,9 @@ const Navbar = (props: any) => {
                 }`}
               >
                 <div>
-                  <Link href="/login" className={styles.signOutLink}>
+                  <button onClick={handleLogout} className={styles.signOutLink}>
                     sign out
-                  </Link>
+                  </button>
                   <div className={styles.lineWrapper}></div>
                 </div>
               </div>

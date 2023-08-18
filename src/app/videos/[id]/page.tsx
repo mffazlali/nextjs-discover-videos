@@ -8,6 +8,8 @@ export const metadata: Metadata = {
   description: 'allow to discover favorite videos',
 }
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const disneyVideos = await getVideos('disney teaser')
   return disneyVideos.map((video: any, idx) => ({
