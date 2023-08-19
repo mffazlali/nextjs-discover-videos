@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import Logo from '../logo/logo'
 import { magic } from '@/app/_lib/magic'
+import useAsyncEffect from 'use-async-effect'
 const Navbar = (props: any) => {
   const router = useRouter()
   const [showDropdown, setShowDropDown] = useState(false)
@@ -32,10 +33,11 @@ const Navbar = (props: any) => {
     }
   }
 
-  useEffect(()=>{
-    const userData=async()=>{
+  useAsyncEffect(async()=>{
       const userMetadata = await magic?.user.getMetadata();
-    }
+      if(userMetadata && userMetadata.email){
+        setUsername(userMetadata.email)
+      }
   },[username])
 
   return (

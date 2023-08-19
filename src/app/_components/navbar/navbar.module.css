@@ -35,7 +35,7 @@
 }
 
 .signOutLink {
-  @apply capitalize font-bold text-base leading-4 cursor-pointer z-50 underline
+  @apply capitalize font-bold text-base leading-4 cursor-pointer z-50 hover:underline
 }
 
 .lineWrapper {
