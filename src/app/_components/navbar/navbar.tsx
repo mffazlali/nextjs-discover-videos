@@ -2,13 +2,13 @@
 import Link from 'next/link'
 import styles from './navbar.module.css'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Logo from '../logo/logo'
 import { magic } from '@/app/_lib/magic'
 const Navbar = (props: any) => {
   const router = useRouter()
   const [showDropdown, setShowDropDown] = useState(false)
-  const { username } = props
+  const [ username,setUsername ] = useState('')
 
   const handleOnClickHome = (e: any) => {
     e.preventDefault()
@@ -26,14 +26,22 @@ const Navbar = (props: any) => {
   }
 
   const handleLogout = async () => {
-    await magic.user.logout();
-    router.push('/login')
-  };
+    const isLogout = await magic?.user.logout()
+    if (isLogout) {
+      router.push('/login')
+    }
+  }
+
+  useEffect(()=>{
+    const userData=async()=>{
+      const userMetadata = await magic?.user.getMetadata();
+    }
+  },[username])
 
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
-        <Logo/>
+        <Logo />
         <ul className={styles.navItems}>
           <li className={styles.navItem1} onClick={handleOnClickHome}>
             home

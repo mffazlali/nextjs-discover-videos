@@ -33,7 +33,6 @@ const SignIn = () => {
         await magic?.auth.loginWithEmailOTP({ email })
         const isLoggedInResult=await isLoggedIn()
         if (isLoggedInResult) {
-          const userMetadata = await magic?.user.getMetadata();
           setIsLoading(false)
           router.push('/')
         } else {
