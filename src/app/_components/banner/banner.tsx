@@ -1,8 +1,10 @@
 'use client'
+import { useRouter } from 'next/navigation'
 import styles from './banner.module.css'
 const Banner = (props: any) => {
+  const router=useRouter()
   const handlePlayButton = () => {
-    console.log('play button')
+    router.push(`videos/${props.id}`)
   }
 
   return (

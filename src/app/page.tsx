@@ -11,6 +11,7 @@ export const metadata: Metadata = {
 }
 
 const Page = async(props:any) => {
+  const bannerVideos = await getVideos('angry bird')
   const disneyVideos = await getVideos('disney teaser')
   const marvelVideos = await getVideos('marvel teaser')
   const tracelVideos = await getVideos('travel')
@@ -22,6 +23,7 @@ const Page = async(props:any) => {
         title="The Angry Birds Movie (2016)"
         subTitle="Sean Penn, Kate McKinnon, Anthony Padilla, Maya Rudolph, Jason Sudeikis"
         imgUrl="/static/banner-image.webp"
+        id="1234"
       />
       <section className={styles.sectionCardWrapper}>
         <SectionCards title="disney" videos={disneyVideos} />

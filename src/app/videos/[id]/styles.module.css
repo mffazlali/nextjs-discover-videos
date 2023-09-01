@@ -1,0 +1,62 @@
+.container {
+}
+
+.modal {
+  @apply absolute top-[5%] right-0 left-0 mx-auto my-0 w-[800px] bottom-10 bg-black rounded-md outline-none border border-black/50 border-solid;
+}
+
+.overlay {
+  @apply inset-0;
+}
+
+.videoPlayer{
+    @apply rounded-lg shadow-lg shadow-white bg-clip-padding opacity-100 bg-gradient-to-t from-black to-transparent
+}
+
+.modalBody{
+
+}
+
+.modalBodyContent{
+    @apply flex flex-wrap
+}
+
+.modalBodyCol1{
+    @apply w-6/12
+}
+
+.modalBodyCol2{
+    @apply w-6/12
+}
+
+.publishTime{
+
+}
+
+.title{
+
+}
+
+.description{
+
+}
+
+.channelTitle{
+
+}
+
+.viewCount{
+
+}
+
+.subTextWrapper{
+
+}
+
+.subText{
+
+}
+
+.textColor{
+    
+}

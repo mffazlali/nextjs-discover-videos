@@ -4,7 +4,6 @@ import styles from './card.module.css'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import cls from 'classnames'
-import Link from 'next/link'
 
 const Card = (props: any) => {
   const {
@@ -32,8 +31,7 @@ const Card = (props: any) => {
       <motion.div
         className={cls(styles.imageWrapper, Object(classMap)[size])}
         whileHover={scale}
-      >
-        <Link href={`/videos/${id}`}>
+      >       
         <Image
           onError={onErrorHandler}
           src={imgSrc}
@@ -43,7 +41,6 @@ const Card = (props: any) => {
           unoptimized={true}
           key={id}
         ></Image>
-        </Link>
       </motion.div>
     </div>
   )

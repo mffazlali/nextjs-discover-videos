@@ -28,7 +28,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(true)
   const router = useRouter()
   useEffect(() => {
@@ -37,24 +37,26 @@ export default function RootLayout({
       setIsLoggedIn(isLoggedInResult ? isLoggedInResult : false)
     }
 
-    isLoggedInCheck()
-    if (isLoggedIn) {
-      router.push('/')
-      setIsLoading(false)
-    } else {
-      router.push('/login')
-      setIsLoading(false)
-    }
+    // isLoggedInCheck()
+    // if (isLoggedIn) {
+    //   router.push('/')
+    //   setIsLoading(false)
+    // } else {
+    //   router.push('/login')
+    //   setIsLoading(false)
+    // }
   }, [isLoggedIn, router])
 
   return (
     <html lang="en">
       {isLoading ? (
         <body>
-          <Loading/>
+          <Loading />
         </body>
       ) : (
-        <body className={roboto_slab.className}>{children}</body>
+        <body className={roboto_slab.className}>
+          <div id="__next">{children}</div>
+        </body>
       )}
     </html>
   )
