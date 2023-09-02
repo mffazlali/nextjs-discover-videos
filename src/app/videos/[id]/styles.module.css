@@ -14,7 +14,7 @@
 }
 
 .modalBody{
-
+  @apply mx-12 my-0
 }
 
 .modalBodyContent{
@@ -22,27 +22,27 @@
 }
 
 .modalBodyCol1{
-    @apply w-6/12
+    @apply w-9/12
 }
 
 .modalBodyCol2{
-    @apply w-6/12
+    @apply w-3/12 flex leading-7 flex-col
 }
 
 .publishTime{
-
+  @apply text-xs font-medium leading-7 mt-6 mb-2 text-green-500
 }
 
 .title{
-
+  @apply text-lg font-medium leading-7 mt-6 mb-2 text-white
 }
 
 .description{
-
+  @apply mt-6 mb-2
 }
 
 .channelTitle{
-
+  @apply text-white m-0
 }
 
 .viewCount{
@@ -50,13 +50,14 @@
 }
 
 .subTextWrapper{
-
+@apply mt-6
 }
 
 .subText{
+  @apply text-sm font-medium ml-0 break-words text-white
 
 }
 
 .textColor{
-    
+    @apply text-gray-500
 }

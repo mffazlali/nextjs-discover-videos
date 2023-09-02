@@ -11,11 +11,11 @@ export const metadata: Metadata = {
 }
 
 const Page = async(props:any) => {
-  const bannerVideos = await getVideos('angry bird')
-  const disneyVideos = await getVideos('disney teaser')
-  const marvelVideos = await getVideos('marvel teaser')
-  const tracelVideos = await getVideos('travel')
-  const popularVideos = await getPopularVideos()
+  const bannerVideos = await getVideos('angry bird',{cache:'force-cache',revalidate:60},1)
+  const disneyVideos = await getVideos('disney teaser',{cache:'no-cache',revalidate:60})
+  const marvelVideos = await getVideos('marvel teaser',{cache:'no-cache',revalidate:60})
+  const tracelVideos = await getVideos('travel',{cache:'no-cache',revalidate:60})
+  const popularVideos = await getPopularVideos({cache:'no-cache',revalidate:60})
   return (
     <div className={styles.container}>
       <Navbar username="mf.fazlali@gmail.com" />

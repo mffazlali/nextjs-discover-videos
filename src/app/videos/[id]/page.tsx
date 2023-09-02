@@ -15,9 +15,9 @@ export const metadata: Metadata = {
 export const dynamicParams = false
 
 export async function generateStaticParams() {
-  const disneyVideos = await getVideos('disney teaser')
-  return disneyVideos.map((video: any, idx) => ({
-    id: idx,
+  const bannerVideos = await getVideos('angry bird',{cache:'force-cache',revalidate:60},1)
+  return bannerVideos.map((video: any) => ({
+    id: video.id,
   }))
 }
 
