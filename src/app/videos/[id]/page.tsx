@@ -1,8 +1,8 @@
 'use client'
-import { getVideos } from '@/app/_lib/videos'
+import { getVideos, getYoutubeVideoById } from '@/app/_lib/videos'
 import { Metadata } from 'next'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Modal from 'react-modal'
 import styles from './styles.module.css'
 import cls from 'classnames'
@@ -15,7 +15,10 @@ export const metadata: Metadata = {
 export const dynamicParams = false
 
 export async function generateStaticParams() {
-  const bannerVideos = await getVideos('angry bird',{cache:'force-cache',revalidate:60},1)
+  const bannerVideos = await getYoutubeVideoById(
+    '1234',
+    { cache: 'force-cache', revalidate: 60 }
+  )
   return bannerVideos.map((video: any) => ({
     id: video.id,
   }))
@@ -26,16 +29,32 @@ Modal.setAppElement('#__next')
 const Page = ({ params }: { params: { id: string } }) => {
   const router = useRouter()
   const [modalIsOpen, setIsOpen] = useState(true)
+  const [video, setVideo] = useState<any>({})
 
-  const video = {
-    title: 'Hi Cute Dog',
-    publishTime: '1990-01-01',
-    description: 'a big red dog that is super cute, can he get any bigger?',
-    channelTitle: 'paramount pictures',
-    viewCount: '10000',
-  }
+  // const video = {
+  //   title: 'Hi Cute Dog',
+  //   publishTime: '1990-01-01',
+  //   description: 'a big red dog that is super cute, can he get any bigger?',
+  //   channelTitle: 'paramount pictures',
+  //   viewCount: '10000',
+  // }
 
-  const {title,publishTime,description,channelTitle,viewCount}=video
+  useEffect(() => {
+    const initBannerVideos = async () => {
+      const videos = await getYoutubeVideoById(
+        params.id,
+        { cache: 'no-store' },
+        1
+      )
+      if (videos && videos.length > 0) {
+        setVideo(videos[0])
+      }
+    }
+
+    initBannerVideos()
+  }, [video, params.id])
+
+  // const { title, publishTime, description, channelTitle, viewCount } = video
 
   const afterOpenModal = () => {}
 
@@ -63,18 +82,20 @@ const Page = ({ params }: { params: { id: string } }) => {
         <div className={styles.modalBody}>
           <div className={styles.modalBodyContent}>
             <div className={styles.modalBodyCol1}>
-              <p className={styles.publishTime}>{publishTime}</p>
-              <p className={styles.title}>{title}</p>
-              <p className={styles.description}>{description}</p>
+              <p className={styles.publishTime}>{video.publishTime}</p>
+              <p className={styles.title}>{video.title}</p>
+              <p className={styles.description}>{video.description}</p>
             </div>
             <div className={styles.modalBodyCol2}>
-              <p className={cls(styles.subTextWrapper,styles.subText)}>
+              <p className={cls(styles.subTextWrapper, styles.subText)}>
                 <span className={styles.textColor}>cast: </span>
-                <span className={styles.channelTitle}>{channelTitle}</span>
+                <span className={styles.channelTitle}>
+                  {video.channelTitle}
+                </span>
               </p>
-              <p className={cls(styles.subTextWrapper,styles.subText)}>
+              <p className={cls(styles.subTextWrapper, styles.subText)}>
                 <span className={styles.textColor}>view count: </span>
-                <span className={styles.viewCount}>{viewCount}</span>
+                <span className={styles.viewCount}>{video.viewCount}</span>
               </p>
             </div>
           </div>

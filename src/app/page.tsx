@@ -3,7 +3,7 @@ import styles from './styles.module.css'
 import Banner from './_components/banner/banner'
 import Navbar from './_components/navbar/navbar'
 import SectionCards from './_components/cards/section-cards'
-import { getPopularVideos, getVideos } from './_lib/videos'
+import { getPopularVideos, getVideos, getYoutubeVideoById } from './_lib/videos'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -11,11 +11,11 @@ export const metadata: Metadata = {
 }
 
 const Page = async(props:any) => {
-  const bannerVideos = await getVideos('angry bird',{cache:'force-cache',revalidate:60},1)
-  const disneyVideos = await getVideos('disney teaser',{cache:'no-cache',revalidate:60})
-  const marvelVideos = await getVideos('marvel teaser',{cache:'no-cache',revalidate:60})
-  const tracelVideos = await getVideos('travel',{cache:'no-cache',revalidate:60})
-  const popularVideos = await getPopularVideos({cache:'no-cache',revalidate:60})
+  const bannerVideo = await getYoutubeVideoById('1234',{cache:'force-cache',revalidate:60})
+  const disneyVideos = await getVideos('disney teaser',{cache:'no-store'})
+  const marvelVideos = await getVideos('marvel teaser',{cache:'no-store'})
+  const tracelVideos = await getVideos('travel',{cache:'no-store'})
+  const popularVideos = await getPopularVideos({cache:'no-store'})
   return (
     <div className={styles.container}>
       <Navbar username="mf.fazlali@gmail.com" />
