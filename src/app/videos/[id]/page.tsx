@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import Modal from 'react-modal'
 import styles from './styles.module.css'
 import cls from 'classnames'
+import Navbar from '@/app/_components/navbar/navbar'
 
 export const metadata: Metadata = {
   title: 'video',
@@ -15,10 +16,10 @@ export const metadata: Metadata = {
 export const dynamicParams = false
 
 export async function generateStaticParams() {
-  const bannerVideos = await getYoutubeVideoById(
-    '1234',
-    { cache: 'force-cache', revalidate: 60 }
-  )
+  const bannerVideos = await getYoutubeVideoById('1234', {
+    cache: 'force-cache',
+    revalidate: 60,
+  })
   return bannerVideos.map((video: any) => ({
     id: video.id,
   }))
@@ -41,11 +42,7 @@ const Page = ({ params }: { params: { id: string } }) => {
 
   useEffect(() => {
     const initBannerVideos = async () => {
-      const videos = await getYoutubeVideoById(
-        params.id,
-        { cache: 'no-store' },
-        1
-      )
+      const videos = await getYoutubeVideoById(params.id, { cache: 'no-store' })
       if (videos && videos.length > 0) {
         setVideo(videos[0])
       }
@@ -62,6 +59,7 @@ const Page = ({ params }: { params: { id: string } }) => {
 
   return (
     <div className={styles.container}>
+      <Navbar />
       <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
