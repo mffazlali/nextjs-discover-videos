@@ -42,18 +42,20 @@ export const getYoutubeVideoById = async (
 
 const getCommonVideos = async (url: string, init?: RequestInit) => {
   const baseUrl = `https://youtube.googleapis.com/youtube/v3`
-  const youtubeAPIKey = process.env.YOUTUBE_API_KEY
-  const isDev = process.env.DEVELOPMENT
+  const youtubeAPIKey = process.env.NEXT_PUBLIC_YOUTUBE_API_KEY
+  const isDev = process.env.NEXT_PUBLIC_DEVELOPMENT
   const input = `${baseUrl}/${url}&key=${youtubeAPIKey}`
   let response: any = null
-  if (isDev) {
-    const queryParams = url.split('&')
-    const queryParamsId = queryParams[queryParams.length - 1]
-    const id = queryParamsId.split('=')[1]
-    response = {
-      result: videosMapper(videoTestData.items).filter(
-        (video) => video.id == id
-      ),
+  if (!!isDev) {
+    if(url.includes('&id=')){
+      const id=url.substring(url.indexOf('&id=')+4)
+      response = {
+        result: videosMapper(videoTestData.items).filter(
+          (video) => video.id == id
+        ),
+      }  
+    }else{
+      response={result:videosMapper(videoTestData.items)}
     }
   } else {
     response = await fetch(input, init)
@@ -65,7 +67,6 @@ const getCommonVideos = async (url: string, init?: RequestInit) => {
       .catch((err: Error) =>
         Promise.resolve({ result: [], message: err.message })
       )
-    console.log({ response })
   }
   return response.result
 }

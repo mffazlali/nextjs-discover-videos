@@ -41,7 +41,7 @@ const Page = ({ params }: { params: { id: string } }) => {
   // }
 
   useEffect(() => {
-    const initBannerVideos = async () => {
+    const initBannerVideos = async () => {    
       const videos = await getYoutubeVideoById(params.id, { cache: 'no-store' })
       if (videos && videos.length > 0) {
         setVideo(videos[0])
@@ -49,7 +49,7 @@ const Page = ({ params }: { params: { id: string } }) => {
     }
 
     initBannerVideos()
-  }, [video, params.id])
+  }, [params.id])
 
   // const { title, publishTime, description, channelTitle, viewCount } = video
 
