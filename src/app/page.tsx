@@ -4,6 +4,7 @@ import Banner from './_components/banner/banner'
 import Navbar from './_components/navbar/navbar'
 import SectionCards from './_components/cards/section-cards'
 import { getPopularVideos, getVideos, getYoutubeVideoById } from './_lib/videos'
+import { startFetchMyQuery } from './_lib/hasura'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -19,6 +20,7 @@ const Page = async (props: any) => {
   const marvelVideos = await getVideos('marvel teaser', { cache: 'no-store' })
   const tracelVideos = await getVideos('travel', { cache: 'no-store' })
   const popularVideos = await getPopularVideos({ cache: 'no-store' })
+  startFetchMyQuery()
   return (
     <div className={styles.container}>
       <Navbar />
