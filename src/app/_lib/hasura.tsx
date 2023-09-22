@@ -1,51 +1,48 @@
-/*
-This is an example snippet - you should consider tailoring it
-to your service.
-*/
-
-async function queryHusaraGQL(
-  operationsDoc: string,
-  operationName: string,
-  variables: any
-) {
+export async function getUserById(token: string, email: string) {
+  const operationsDoc = `
+  query getUserByEmail($email: String = "") {
+    users(where: {email: {_eq: $email}}) {
+      email
+      issuer
+      publicAddress
+    }
+  }
+`
   const result = await fetch(process.env.NEXT_PUBLIC_HUSARA_ADIMN_URL!, {
     method: 'POST',
     headers: {
       // 'x-hasura-admin-secret': process.env.NEXT_PUBLIC_HUSARA_ADIMN_SECRET!,
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZmF6bGFsaSIsImlhdCI6MTY5NDg4NDIxNCwiZXhwIjoxNjk1NDg5MDY3LCJodHRwczovL2hhc3VyYS5pby9qd3QvY2xhaW1zIjp7IngtaGFzdXJhLWRlZmF1bHQtcm9sZSI6InVzZXIiLCJ4LWhhc3VyYS1hbGxvd2VkLXJvbGVzIjpbInVzZXIiLCJhZG1pbiJdLCJ4LWhhc3VyYS11c2VyLWlkIjoicmV6YWllIn19.nqANpFQ5ek0RmE_UfraxbFOstnuXdHzUS_LzTmFVSi4',
+      Authorization: token,
     },
     body: JSON.stringify({
       query: operationsDoc,
-      variables: variables,
-      operationName: operationName,
+      email: email,
+      operationName: 'getUserByEmail',
     }),
   })
 
   return await result.json()
 }
 
-function fetchMyQuery() {
+export async function insertUser(token: string, user: any) {
+  const {issuer,email,publicAddress}=user
   const operationsDoc = `
-    query MyQuery {
-      users {
-        issuer
-        publicAddress
-        email
-        id
-      }
-    }
-  `
-  return queryHusaraGQL(operationsDoc, 'MyQuery', {})
-}
-
-export async function startFetchMyQuery() {
-  const { errors, data } = await fetchMyQuery()
-
-  if (errors) {
-    // handle those errors like a pro
-    console.error(errors)
+  mutation insertUser($email: String = "", $issuer: String = "", $publicAddress: String = "") {
+    insert_users(objects: {email: $email, issuer: $issuer, publicAddress: $publicAddress})
   }
+`
+  const result = await fetch(process.env.NEXT_PUBLIC_HUSARA_ADIMN_URL!, {
+    method: 'POST',
+    headers: {
+      // 'x-hasura-admin-secret': process.env.NEXT_PUBLIC_HUSARA_ADIMN_SECRET!,
+      Authorization: token,
+    },
+    body: JSON.stringify({
+      query: operationsDoc,
+      user,
+      operationName: 'insertUser',
+    }),
+  })
 
-  // do something great with this precious data
-  console.log(data)
+  return await result.json()
 }

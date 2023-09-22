@@ -3,7 +3,7 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Roboto_Slab, Roboto_Mono } from 'next/font/google'
 import 'material-icons/iconfont/material-icons.css'
-import { magic } from './_lib/magic'
+import { magic } from './_lib/magic-client'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import Loading from './_components/loading/loading'
@@ -37,14 +37,14 @@ export default function RootLayout({
       setIsLoggedIn(isLoggedInResult ? isLoggedInResult : false)
     }
 
-    // isLoggedInCheck()
-    // if (isLoggedIn) {
-    //   router.push('/')
-    //   setIsLoading(false)
-    // } else {
-    //   router.push('/login')
-    //   setIsLoading(false)
-    // }
+    isLoggedInCheck()
+    if (isLoggedIn) {
+      router.push('/')
+      setIsLoading(false)
+    } else {
+      router.push('/login')
+      setIsLoading(false)
+    }
   }, [isLoggedIn, router])
 
   return (

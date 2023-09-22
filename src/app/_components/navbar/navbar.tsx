@@ -4,12 +4,12 @@ import styles from './navbar.module.css'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import Logo from '../logo/logo'
-import { magic } from '@/app/_lib/magic'
+import { magic } from '@/app/_lib/magic-client'
 import useAsyncEffect from 'use-async-effect'
 const Navbar = (props: any) => {
   const router = useRouter()
   const [showDropdown, setShowDropDown] = useState(false)
-  const [ username,setUsername ] = useState('')
+  const [username, setUsername] = useState('')
 
   const handleOnClickHome = (e: any) => {
     e.preventDefault()
@@ -33,12 +33,14 @@ const Navbar = (props: any) => {
     }
   }
 
-  useAsyncEffect(async()=>{
-      const userMetadata = await magic?.user.getMetadata();
-      if(userMetadata && userMetadata.email){
-        setUsername(userMetadata.email)
-      }
-  },[username])
+  useAsyncEffect(async () => {
+    const userMetadata = await magic?.user.getMetadata()
+    if (userMetadata && userMetadata.email) {
+      setUsername(userMetadata.email)
+    }
+    const didToken = await magic?.user.getIdToken()
+    console.log({didToken}); 
+  }, [username])
 
   return (
     <div className={styles.container}>
