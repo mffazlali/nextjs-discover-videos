@@ -38,8 +38,6 @@ const Navbar = (props: any) => {
     if (userMetadata && userMetadata.email) {
       setUsername(userMetadata.email)
     }
-    const didToken = await magic?.user.getIdToken()
-    console.log({didToken}); 
   }, [username])
 
   return (

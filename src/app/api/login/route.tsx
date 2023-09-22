@@ -13,29 +13,30 @@ export async function POST(req: NextRequest) {
     const auth = req.headers.get('Authorization')
     const didToken = auth?.substring(7) ?? ''
     console.log({ didToken })
-    const metaData = await magicAdmin.users.getMetadataByToken(didToken)
-    console.log({ metaData })
-    const jwtToken=jwt.sign({
-      ...metaData,
-      "iat": Math.floor(Date.now() / 1000),
-      "exp": Math.floor(Date.now() / 1000 * 7 * 24 * 60 * 60),
-      "https://hasura.io/jwt/claims": {
-        "x-hasura-default-role": "user",
-        "x-hasura-allowed-roles": ["user", "admin"],
-        "x-hasura-user-id": metaData.issuer,
-      }
-    }, process.env.NEXT_PUBLIC_HUSARA_JWT!)
-    console.log({ jwtToken })
-    const userCurrent= await getUserById(jwtToken,metaData.email!)
-    console.log({ userCurrent })
-    const cookie=setTokenCookie(jwtToken)
-    console.log({ cookie })
+    console.log({ a:magicAdmin.token.validate(didToken) })
+    // const metaData = await magicAdmin.users.getMetadataByToken(didToken)
+    // console.log({ metaData })
+    // const jwtToken=jwt.sign({
+    //   ...metaData,
+    //   "iat": Math.floor(Date.now() / 1000),
+    //   "exp": Math.floor(Date.now() / 1000 * 7 * 24 * 60 * 60),
+    //   "https://hasura.io/jwt/claims": {
+    //     "x-hasura-default-role": "user",
+    //     "x-hasura-allowed-roles": ["user", "admin"],
+    //     "x-hasura-user-id": metaData.issuer,
+    //   }
+    // }, process.env.NEXT_PUBLIC_HUSARA_JWT!)
+    // console.log({ jwtToken })
+    // const userCurrent= await getUserById(jwtToken,metaData.email!)
+    // console.log({ userCurrent })
+    // const cookie=setTokenCookie(jwtToken)
+    // console.log({ cookie })
     return NextResponse.json(
       { result: null },
       {
         status: 200,
         headers: {
-          'Set-Cookie': cookie,
+          // 'Set-Cookie': cookie,
         },
       }
     )
