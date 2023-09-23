@@ -13,9 +13,8 @@ export async function POST(req: NextRequest) {
     const auth = req.headers.get('Authorization')
     const didToken = auth?.substring(7) ?? ''
     console.log({ didToken })
-    console.log({ a:magicAdmin.token.validate(didToken) })
-    // const metaData = await magicAdmin.users.getMetadataByToken(didToken)
-    // console.log({ metaData })
+    const metaData = await magicAdmin.token.getPublicAddress(didToken)
+    console.log({ metaData })
     // const jwtToken=jwt.sign({
     //   ...metaData,
     //   "iat": Math.floor(Date.now() / 1000),
