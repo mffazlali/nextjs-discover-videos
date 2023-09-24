@@ -61,3 +61,11 @@
 .textColor{
     @apply text-gray-500
 }
+
+.wrapperFavored{
+  @apply absolute flex left-5 mb-2 top-4
+}
+
+.wrapperFavoredButton{
+  @apply flex border-black border border-solid bg-transparent rounded-full p-2 
+}

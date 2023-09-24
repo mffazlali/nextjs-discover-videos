@@ -7,6 +7,15 @@ import Modal from 'react-modal'
 import styles from './styles.module.css'
 import cls from 'classnames'
 import Navbar from '@/app/_components/navbar/navbar'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+  faThumbsDown as ThumbsDownFill,
+  faThumbsUp as ThumbsUpFill,
+} from '@fortawesome/free-solid-svg-icons'
+import {
+  faThumbsDown as ThumbsDown,
+  faThumbsUp as ThumbsUp,
+} from '@fortawesome/free-regular-svg-icons'
 
 export const metadata: Metadata = {
   title: 'video',
@@ -41,7 +50,7 @@ const Page = ({ params }: { params: { id: string } }) => {
   // }
 
   useEffect(() => {
-    const initBannerVideos = async () => {    
+    const initBannerVideos = async () => {
       const videos = await getYoutubeVideoById(params.id, { cache: 'no-store' })
       if (videos && videos.length > 0) {
         setVideo(videos[0])
@@ -77,6 +86,18 @@ const Page = ({ params }: { params: { id: string } }) => {
           src={`http://www.youtube.com/embed/${params.id}?enablejsapi=1&origin=http://example.com&autoplay=0&controls=0&rel=1`}
           frameborder="0"
         ></iframe>
+        <div className={styles.wrapperFavored}>
+          <div className={styles.wrapperFavoredButton}>
+            <button>
+              <FontAwesomeIcon icon={ThumbsUp} size="2xl" />
+            </button>
+          </div>
+          <div className={styles.wrapperFavoredButton}>
+          <button>
+            <FontAwesomeIcon icon={ThumbsDown} size="2xl" />
+          </button>
+          </div>
+        </div>
         <div className={styles.modalBody}>
           <div className={styles.modalBodyContent}>
             <div className={styles.modalBodyCol1}>
