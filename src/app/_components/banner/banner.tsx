@@ -1,6 +1,9 @@
 'use client'
 import { useRouter } from 'next/navigation'
 import styles from './banner.module.css'
+import cls from "classnames";
+import Image from 'next/image'
+
 const Banner = (props: any) => {
   const router=useRouter()
   const handlePlayButton = () => {
@@ -26,7 +29,16 @@ const Banner = (props: any) => {
         </div>
       </div>
       <div className={styles.imageWrapper}>
-        <div className={styles.image}></div>
+        <Image
+          src={props.imgUrl}
+          fill={true}
+          objectFit="cover"
+          alt={props.title}
+          unoptimized={true}
+          key={props.id}
+          className={styles.image}
+        ></Image>
+
       </div>
     </div>
   )

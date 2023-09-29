@@ -1,8 +1,5 @@
-import { getUserById } from '@/app/_lib/hasura'
-import { magicAdmin } from '@/app/_lib/magic'
 import { NextRequest, NextResponse } from 'next/server'
 import jwt from 'jsonwebtoken'
-import { setTokenCookie } from '@/app/_lib/cookies'
 
 export async function GET(req: NextRequest) {
   return NextResponse.json({ message: 'login' }, { status: 200 })
@@ -13,7 +10,7 @@ export async function POST(req: NextRequest) {
     const token = req.cookies!.get('token')!.value
     const decoded = jwt.verify(
       token,
-      process.env.NEXT_PUBLIC_HUSARA_ADIMN_SECRET!
+      process.env.NEXT_PUBLIC_HASURA_ADIMN_SECRET!
     )
     if (decoded) {
       return NextResponse.json(

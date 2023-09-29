@@ -51,6 +51,6 @@
 } */
 
 .image {
-    @apply absolute bg-[url('../../../../public/static/banner-image.webp')] w-full h-full bg-cover  bg-no-repeat bg-center
+    @apply absolute w-full h-full
 }
 

@@ -16,6 +16,8 @@ import {
   faThumbsDown as ThumbsDown,
   faThumbsUp as ThumbsUp,
 } from '@fortawesome/free-regular-svg-icons'
+import { LikeIcon } from '@/app/_components/icons/like-icon'
+import { DislikeIcon } from '@/app/_components/icons/dislike-icon'
 
 export const metadata: Metadata = {
   title: 'video',
@@ -40,6 +42,8 @@ const Page = ({ params }: { params: { id: string } }) => {
   const router = useRouter()
   const [modalIsOpen, setIsOpen] = useState(true)
   const [video, setVideo] = useState<any>({})
+  const [toggleLike, setToggleLike] = useState<boolean>(false)
+  const [toggleDisLike, setToggleDisLike] = useState<boolean>(false)
 
   // const video = {
   //   title: 'Hi Cute Dog',
@@ -61,6 +65,17 @@ const Page = ({ params }: { params: { id: string } }) => {
   }, [params.id])
 
   // const { title, publishTime, description, channelTitle, viewCount } = video
+
+  const handleToggleLike=()=>{
+    setToggleLike(!toggleLike)
+    setToggleDisLike(toggleLike)
+  }
+
+  const handleToggleDisLike=()=>{
+    setToggleDisLike(!toggleDisLike)
+    setToggleLike(toggleDisLike)
+
+  }
 
   const afterOpenModal = () => {}
 
@@ -86,15 +101,17 @@ const Page = ({ params }: { params: { id: string } }) => {
           src={`http://www.youtube.com/embed/${params.id}?enablejsapi=1&origin=http://example.com&autoplay=0&controls=0&rel=1`}
           frameborder="0"
         ></iframe>
-        <div className={styles.wrapperFavored}>
-          <div className={styles.wrapperFavoredButton}>
-            <button>
-              <FontAwesomeIcon icon={ThumbsUp} size="2xl" />
+        <div className={styles.wrapperFavorite}>
+          <div className={styles.wrapperFavoriteButton}>
+            <button onClick={handleToggleLike}>
+              {/* <FontAwesomeIcon icon={ThumbsUp} size="2xl" /> */}
+              <LikeIcon selected={toggleLike}/>
             </button>
           </div>
-          <div className={styles.wrapperFavoredButton}>
-          <button>
-            <FontAwesomeIcon icon={ThumbsDown} size="2xl" />
+          <div className={styles.wrapperFavoriteButton}>
+          <button onClick={handleToggleDisLike}>
+            {/* <FontAwesomeIcon icon={ThumbsDown} size="2xl" /> */}
+            <DislikeIcon selected={toggleDisLike}/>
           </button>
           </div>
         </div>

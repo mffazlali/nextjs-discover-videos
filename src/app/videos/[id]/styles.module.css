@@ -62,10 +62,10 @@
     @apply text-gray-500
 }
 
-.wrapperFavored{
-  @apply absolute flex left-5 mb-2 top-4
+.wrapperFavorite{
+  @apply absolute flex left-5 mb-2 top-[12rem]
 }
 
-.wrapperFavoredButton{
-  @apply flex border-black border border-solid bg-transparent rounded-full p-2 
+.wrapperFavoriteButton{
+  @apply flex border-white border border-solid bg-black/20 rounded-full mr-4 p-2
 }

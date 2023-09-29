@@ -5,7 +5,6 @@ import Banner from './_components/banner/banner'
 import Navbar from './_components/navbar/navbar'
 import SectionCards from './_components/cards/section-cards'
 import { getPopularVideos, getVideos, getYoutubeVideoById } from './_lib/videos'
-import useAsyncEffect from 'use-async-effect'
 import { magic } from './_lib/magic-client'
 import { useEffect, useState } from 'react'
 import { loginService } from './_services/login.services'
@@ -16,7 +15,7 @@ export const metadata: Metadata = {
 }
 
 const Page = (props: any) => {
-  const [bannerVideo, setBannerVideo] = useState([])
+  const [bannerVideo, setBannerVideo] = useState<any>({})
   const [disneyVideos, setDisneyVideos] = useState([])
   const [marvelVideos, setMarvelVideos] = useState([])
   const [travelVideos, setTravelVideos] = useState([])
@@ -25,17 +24,16 @@ const Page = (props: any) => {
   useEffect(() => {
     const initVideos = async () => {
       setBannerVideo(
-        await getYoutubeVideoById('1234', {
+        ([...await getYoutubeVideoById('PoJi4V6Q2AI', {
           cache: 'force-cache',
           revalidate: 60,
-        })
+        })][0])
       )
       setDisneyVideos(await getVideos('disney teaser', { cache: 'no-store' }))
       setMarvelVideos(await getVideos('marvel teaser', { cache: 'no-store' }))
       setTravelVideos(await getVideos('travel', { cache: 'no-store' }))
       setPopularVideos(await getPopularVideos({ cache: 'no-store' }))
     }
-
     initVideos()
 
     const userSignedIn = async () => {
@@ -51,10 +49,10 @@ const Page = (props: any) => {
     <div className={styles.container}>
       <Navbar />
       <Banner
-        title="The Angry Birds Movie (2016)"
-        subTitle="Sean Penn, Kate McKinnon, Anthony Padilla, Maya Rudolph, Jason Sudeikis"
-        imgUrl="/static/banner-image.webp"
-        id="1234"
+        title={bannerVideo.title}
+        subTitle=""
+        imgUrl={bannerVideo.imgUrl}
+        id={bannerVideo.id}
       />
       <section className={styles.sectionCardWrapper}>
         <SectionCards title="disney" videos={disneyVideos} />
