@@ -18,6 +18,7 @@ import {
 } from '@fortawesome/free-regular-svg-icons'
 import { LikeIcon } from '@/app/_components/icons/like-icon'
 import { DislikeIcon } from '@/app/_components/icons/dislike-icon'
+import { getStatsService } from '@/app/_services/stats.services'
 
 export const metadata: Metadata = {
   title: 'video',
@@ -39,6 +40,7 @@ export async function generateStaticParams() {
 Modal.setAppElement('#__next')
 
 const Page = ({ params }: { params: { id: string } }) => {
+  const videoId=params.id
   const router = useRouter()
   const [modalIsOpen, setIsOpen] = useState(true)
   const [video, setVideo] = useState<any>({})
@@ -55,20 +57,21 @@ const Page = ({ params }: { params: { id: string } }) => {
 
   useEffect(() => {
     const initBannerVideos = async () => {
-      const videos = await getYoutubeVideoById(params.id, { cache: 'no-store' })
+      const videos = await getYoutubeVideoById(videoId, { cache: 'no-store' })
       if (videos && videos.length > 0) {
         setVideo(videos[0])
       }
     }
 
     initBannerVideos()
-  }, [params.id])
+  }, [])
 
   // const { title, publishTime, description, channelTitle, viewCount } = video
 
   const handleToggleLike=()=>{
     setToggleLike(!toggleLike)
     setToggleDisLike(toggleLike)
+    getStatsService(,videoId)
   }
 
   const handleToggleDisLike=()=>{
@@ -98,7 +101,7 @@ const Page = ({ params }: { params: { id: string } }) => {
           width="100%"
           height="390"
           className={styles.videoPlayer}
-          src={`http://www.youtube.com/embed/${params.id}?enablejsapi=1&origin=http://example.com&autoplay=0&controls=0&rel=1`}
+          src={`http://www.youtube.com/embed/${videoId}?enablejsapi=1&origin=http://example.com&autoplay=0&controls=0&rel=1`}
           frameborder="0"
         ></iframe>
         <div className={styles.wrapperFavorite}>
