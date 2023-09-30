@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
     console.log(jwtToken)
     const findedUsers = await getUserById(jwtToken, metaData.issuer)
     const users = [...findedUsers.data.users]
-    const cookie = setTokenCookie(jwtToken)
+    const cookie = setTokenCookie(decoded)
     console.log({ users })
     if (users.length > 0) {
       return NextResponse.json(
