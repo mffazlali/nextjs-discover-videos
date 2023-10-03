@@ -7,15 +7,6 @@ import Modal from 'react-modal'
 import styles from './styles.module.css'
 import cls from 'classnames'
 import Navbar from '@/app/_components/navbar/navbar'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faThumbsDown as ThumbsDownFill,
-  faThumbsUp as ThumbsUpFill,
-} from '@fortawesome/free-solid-svg-icons'
-import {
-  faThumbsDown as ThumbsDown,
-  faThumbsUp as ThumbsUp,
-} from '@fortawesome/free-regular-svg-icons'
 import { LikeIcon } from '@/app/_components/icons/like-icon'
 import { DislikeIcon } from '@/app/_components/icons/dislike-icon'
 import {
@@ -69,21 +60,43 @@ const Page = ({ params }: { params: { id: string } }) => {
     initBannerVideos()
   }, [])
 
+  useEffect(() => {
+    const setLikeORDisLike = async () => {
+      const response = await getStatsService(videoId)
+      console.log({response})
+      if (response.result) {
+        const {favourited} = response.result
+        console.log({favourited})
+        if (favourited == 0) {
+          setToggleDisLike(true)
+        } else {
+          setToggleLike(true)
+        }
+      }
+    }
+    setLikeORDisLike()
+  }, [])
   // const { title, publishTime, description, channelTitle, viewCount } = video
 
-  const handleToggleLike = () => {
-    setToggleLike(!toggleLike)
-    setToggleDisLike(toggleLike)
-    const favourited = toggleLike ? 1 : 0
-    setStatsService({videoId,favourited})
+  const handleToggleLike = async () => {
+    if (!toggleLike) {
+      setToggleLike(!toggleLike)
+      setToggleDisLike(toggleLike)
+      const favourited = toggleLike ? 0 : 1
+      const result = await setStatsService({ videoId, favourited })
+      console.log({ result })
+    }
   }
 
-  const handleToggleDisLike = () => {
-    setToggleDisLike(!toggleDisLike)
-    setToggleLike(toggleDisLike)
-    const favourited = toggleDisLike ? 0 : 1
-    setStatsService({videoId,favourited})
-}
+  const handleToggleDisLike = async () => {
+    if (!toggleDisLike) {
+      setToggleDisLike(!toggleDisLike)
+      setToggleLike(toggleDisLike)
+      const favourited = toggleDisLike ? 1 : 0
+      const result = await setStatsService({ videoId, favourited })
+      console.log({ result })
+    }
+  }
 
   const afterOpenModal = () => {}
 

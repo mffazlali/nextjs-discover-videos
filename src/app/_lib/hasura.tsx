@@ -57,7 +57,7 @@ export async function insertUser(token: string, user: any) {
 }
 
 export async function getStatsByVideoId(token: string, userId: string,videoId:string) {
-  console.log(token)
+  console.log({token,userId,videoId})
   const operationsDoc = `
   query getStatsByVideoId($userId: String = "", $videoId: String = "") {
     stats(where: {userId: {_eq: $userId}, _and: {videoId: {_eq: $videoId}}}) {
