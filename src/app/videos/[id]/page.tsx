@@ -18,7 +18,10 @@ import {
 } from '@fortawesome/free-regular-svg-icons'
 import { LikeIcon } from '@/app/_components/icons/like-icon'
 import { DislikeIcon } from '@/app/_components/icons/dislike-icon'
-import { getStatsService } from '@/app/_services/stats.services'
+import {
+  getStatsService,
+  setStatsService,
+} from '@/app/_services/stats.services'
 
 export const metadata: Metadata = {
   title: 'video',
@@ -40,7 +43,7 @@ export async function generateStaticParams() {
 Modal.setAppElement('#__next')
 
 const Page = ({ params }: { params: { id: string } }) => {
-  const videoId=params.id
+  const videoId = params.id
   const router = useRouter()
   const [modalIsOpen, setIsOpen] = useState(true)
   const [video, setVideo] = useState<any>({})
@@ -68,17 +71,19 @@ const Page = ({ params }: { params: { id: string } }) => {
 
   // const { title, publishTime, description, channelTitle, viewCount } = video
 
-  const handleToggleLike=()=>{
+  const handleToggleLike = () => {
     setToggleLike(!toggleLike)
     setToggleDisLike(toggleLike)
-    getStatsService(,videoId)
+    const favourited = toggleLike ? 1 : 0
+    setStatsService({videoId,favourited})
   }
 
-  const handleToggleDisLike=()=>{
+  const handleToggleDisLike = () => {
     setToggleDisLike(!toggleDisLike)
     setToggleLike(toggleDisLike)
-
-  }
+    const favourited = toggleDisLike ? 0 : 1
+    setStatsService({videoId,favourited})
+}
 
   const afterOpenModal = () => {}
 
@@ -108,14 +113,14 @@ const Page = ({ params }: { params: { id: string } }) => {
           <div className={styles.wrapperFavoriteButton}>
             <button onClick={handleToggleLike}>
               {/* <FontAwesomeIcon icon={ThumbsUp} size="2xl" /> */}
-              <LikeIcon selected={toggleLike}/>
+              <LikeIcon selected={toggleLike} />
             </button>
           </div>
           <div className={styles.wrapperFavoriteButton}>
-          <button onClick={handleToggleDisLike}>
-            {/* <FontAwesomeIcon icon={ThumbsDown} size="2xl" /> */}
-            <DislikeIcon selected={toggleDisLike}/>
-          </button>
+            <button onClick={handleToggleDisLike}>
+              {/* <FontAwesomeIcon icon={ThumbsDown} size="2xl" /> */}
+              <DislikeIcon selected={toggleDisLike} />
+            </button>
           </div>
         </div>
         <div className={styles.modalBody}>

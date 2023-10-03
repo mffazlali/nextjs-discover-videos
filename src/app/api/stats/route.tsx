@@ -12,7 +12,7 @@ export async function GET(req: NextRequest) {
     if (decodedToken) {
       const jwtToken = `Bearer ${decodedToken}`
       const userId = await (decodedToken as JwtPayload).issuer
-      let { videoId } = await req.json()
+      const videoId = await req.nextUrl.searchParams.get('videoId')!
       const findedStats = await getStatsByVideoId(jwtToken, userId, videoId)
       const doesStatsExist = [...findedStats.data.stats].length > 0
       if (doesStatsExist) {
@@ -55,13 +55,13 @@ export async function POST(req: NextRequest) {
       const userId = await (decodedToken as JwtPayload).issuer
       let { videoId, favourited, watched = false } = await req.json()
       const findedStats = await getStatsByVideoId(jwtToken, userId, videoId)
-      const doesStatsExist = [...findedStats.data.stats].length > 0
       const stats = {
         userId,
         videoId,
         favourited,
         watched,
       }
+      const doesStatsExist = [...findedStats.data.stats].length > 0
       if (doesStatsExist) {
         const updateedStats = await updateStats(jwtToken, stats)
         console.log({ updateedStats })

@@ -1,21 +1,18 @@
 import { json } from 'stream/consumers'
 
-export const getStatsService = (token: string, videoId: string) => {
-  fetch('/api/stats', {
+export const getStatsService = (videoId: string) => {
+  fetch(`/api/stats?videoId=${videoId}`, {
     method: 'get',
     headers: {
-      Authorization: `Bearer ${token}`,
       'content-type': 'application/json',
     },
-    body: JSON.stringify({ videoId }),
   })
 }
 
-export const setStatsService = (token: string, stats: any) => {
+export const setStatsService = (stats: any) => {
   fetch('/api/stats', {
     method: 'post',
     headers: {
-      Authorization: `Bearer ${token}`,
       'content-type': 'application/json',
     },
     body: JSON.stringify({ stats }),
