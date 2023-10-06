@@ -44,7 +44,6 @@ const SignIn = () => {
         }
       } catch (err) {
         setIsLoading(false)
-        console.log(err)
         setErrorMsg('something we wrong logging in')
       }
     } else {

@@ -6,7 +6,6 @@ import cls from 'classnames'
 
 const SectionCards = (props: any) => {
   const { title, videos, size, shouldWrap = false, shouldScale = true } = props
-  console.log({shouldScale})
   return (
     <section className={styles.container}>
       <h3 className={styles.title}>{title}</h3>

@@ -21,8 +21,6 @@ const Card = (props: any) => {
 
   const [imgSrc, setImgSrc] = useState(imgUrl)
   const scale = id === 0 ? { scaleY: 1.1 } : { scale: 1.1 }
-  if(shouldScale==false)
-  console.log({shouldScale})
   const shouldHover = shouldScale && { whileHover: { ...scale } }
   const onErrorHandler = () => {
     setImgSrc(

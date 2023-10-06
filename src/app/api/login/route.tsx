@@ -12,18 +12,15 @@ export async function POST(req: NextRequest) {
   try {
     const auth = req.headers.get('Authorization')
     const didToken = auth?.substring(7) ?? ''
-    console.log({ didToken })
     const publicAddress = await magicAdmin.token.getPublicAddress(didToken)
     const issuer = await magicAdmin.token.getIssuer(didToken)
     // const email = await magicAdmin.users.getMetadataByIssuer(issuer)
     const email = 'mf.fazlali@gmail.com'
-    console.log(email)
     const metaData = {
       publicAddress,
       issuer,
       email,
     }
-    console.log({ metaData })
     const decoded = jwt.sign(
       {
         ...metaData,
@@ -38,11 +35,9 @@ export async function POST(req: NextRequest) {
       process.env.NEXT_PUBLIC_HUSARA_JWT!
     )
     const jwtToken = `Bearer ${decoded}`
-    console.log(jwtToken)
     const findedUsers = await getUserById(jwtToken, metaData.issuer)
     const users = [...findedUsers.data.users]
     const cookie = setTokenCookie(decoded)
-    console.log({ users })
     if (users.length > 0) {
       return NextResponse.json(
         { result: { message: 'user existed' } },
@@ -55,7 +50,6 @@ export async function POST(req: NextRequest) {
       )
     } else {
       const insertedUsers = await insertUser(jwtToken, metaData)
-      console.log(insertedUsers)
       return NextResponse.json(
         { result: { message: 'user is inserted' } },
         {

@@ -43,16 +43,12 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    console.log({ req })
     const token = req.cookies!.get('token')!.value
-    console.log({ token })
     const decodedToken=await verifyToken(token)
-    console.log({ decodedToken })
     if (decodedToken) {
       const jwtToken = `Bearer ${token}`
       const userId = decodedToken.issuer
       const res = await req.json()
-      console.log({ req: res })
       let { videoId, favourited, watched = false } = res
       const findedStats = await getStatsByVideoId(jwtToken, userId, videoId)
       const stats = {
@@ -61,17 +57,14 @@ export async function POST(req: NextRequest) {
         favourited,
         watched,
       }
-      console.log({ findedStats })
       const doesStatsExist = [...findedStats.data.stats].length > 0
       let result = null
       if (doesStatsExist) {
         const updateedStats = await updateStats(jwtToken, stats)
         result = updateedStats
-        console.log({ updateedStats })
       } else {
         const insertedStats = await insertStats(jwtToken, stats)
         result = insertedStats
-        console.log({ insertedStats })
       }
       return NextResponse.json(
         { result },

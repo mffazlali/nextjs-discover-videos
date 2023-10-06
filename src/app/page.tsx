@@ -21,7 +21,6 @@ export const metadata: Metadata = {
 }
 
 const Page = (props: any) => {
-  console.log({ props })
   const [bannerVideo, setBannerVideo] = useState<any>({})
   const [disneyVideos, setDisneyVideos] = useState([])
   const [marvelVideos, setMarvelVideos] = useState([])
@@ -46,7 +45,6 @@ const Page = (props: any) => {
       setPopularVideos(await getPopularVideos({ cache: 'no-store' }))
       // const decoded=await verifyToken(token)
       const userMetadata = await magic?.user.getMetadata()
-      console.log({ userMetadata })
       if (userMetadata) {
         const userId = userMetadata.issuer
         setWatchItVideos(await getWatchItAgainVideos(token, userId!))

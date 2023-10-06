@@ -75,9 +75,7 @@ const getCommonVideos = async (url: string, init?: RequestInit) => {
 export const getWatchItAgainVideos = async (token: string, userId: string) => {
   const jwtToken = `Bearer ${token}`
   const result = await getStatsByWatched(jwtToken, userId)
-  console.log({ result })
   const videos = [...result.data.stats]
-  console.log({ videos })
   return videos.map((video) => {
     return {
       id: video.videoId,
@@ -89,9 +87,7 @@ export const getWatchItAgainVideos = async (token: string, userId: string) => {
 export const getFavouritedVideos = async (token: string, userId: string) => {
   const jwtToken = `Bearer ${token}`
   const result = await getStatsByFavourited(jwtToken, userId)
-  console.log({ result })
   const videos = [...result.data.stats]
-  console.log({ videos })
   return videos.map((video) => {
     return {
       id: video.videoId,

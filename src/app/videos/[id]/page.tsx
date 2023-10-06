@@ -63,10 +63,8 @@ const Page = ({ params }: { params: { id: string } }) => {
   useEffect(() => {
     const setLikeORDisLike = async () => {
       const response = await getStatsService(videoId)
-      console.log({response})
       if (response.result) {
         const {favourited} = response.result
-        console.log({favourited})
         if (favourited == 0) {
           setToggleDisLike(true)
         } else {
@@ -84,7 +82,6 @@ const Page = ({ params }: { params: { id: string } }) => {
       setToggleDisLike(toggleLike)
       const favourited = toggleLike ? 0 : 1
       const result = await setStatsService({ videoId, favourited, watched: true })
-      console.log({ result })
     }
   }
 
@@ -94,7 +91,6 @@ const Page = ({ params }: { params: { id: string } }) => {
       setToggleLike(toggleDisLike)
       const favourited = toggleDisLike ? 1 : 0
       const result = await setStatsService({ videoId, favourited, watched: true })
-      console.log({ result })
     }
   }
 

@@ -1,5 +1,4 @@
 export async function getUserById(token: string, issuer: any) {
-  console.log(token)
   const operationsDoc = 
   ` query MyQuery($issuer: String = "") {
     users(where: {issuer: {_eq: $issuer}}) {
@@ -15,7 +14,6 @@ export async function getUserById(token: string, issuer: any) {
     Authorization: token
 
   }
-  console.log(headers.Authorization)
   const result = await fetch(process.env.NEXT_PUBLIC_HASURA_ADIMN_URL!, {
     method: 'POST',
     headers,
@@ -57,7 +55,6 @@ export async function insertUser(token: string, user: any) {
 }
 
 export async function getStatsByVideoId(token: string, userId: string,videoId:string) {
-  console.log({token,userId,videoId})
   const operationsDoc = `
   query getStatsByVideoId($userId: String = "", $videoId: String = "") {
     stats(where: {userId: {_eq: $userId}, _and: {videoId: {_eq: $videoId}}}) {
@@ -74,7 +71,6 @@ export async function getStatsByVideoId(token: string, userId: string,videoId:st
     Authorization: token
 
   }
-  console.log(headers.Authorization)
   const result = await fetch(process.env.NEXT_PUBLIC_HASURA_ADIMN_URL!, {
     method: 'POST',
     headers,
@@ -90,7 +86,6 @@ export async function getStatsByVideoId(token: string, userId: string,videoId:st
 }
 
 export async function getStatsByWatched(token: string, userId: string) {
-  console.log({token,userId})
   const operationsDoc = `
   query getStatsByWatched($userId: String = "") {
     stats(where: {userId: {_eq: $userId}, _and: {watched: {_eq: true}}}) {
@@ -106,7 +101,6 @@ export async function getStatsByWatched(token: string, userId: string) {
     Authorization: token
 
   }
-  console.log(headers.Authorization)
   const result = await fetch(process.env.NEXT_PUBLIC_HASURA_ADIMN_URL!, {
     method: 'POST',
     headers,
@@ -122,7 +116,6 @@ export async function getStatsByWatched(token: string, userId: string) {
 }
 
 export async function getStatsByFavourited(token: string, userId: string) {
-  console.log({token,userId})
   const operationsDoc = `
   query getStatsByFavourited($userId: String = "") {
     stats(where: {userId: {_eq: $userId}, _and: {favourited: {_eq: 1}}}) {
@@ -138,7 +131,6 @@ export async function getStatsByFavourited(token: string, userId: string) {
     Authorization: token
 
   }
-  console.log(headers.Authorization)
   const result = await fetch(process.env.NEXT_PUBLIC_HASURA_ADIMN_URL!, {
     method: 'POST',
     headers,

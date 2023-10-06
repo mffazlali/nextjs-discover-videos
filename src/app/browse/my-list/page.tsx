@@ -20,7 +20,6 @@ const MyList = () => {
       const token = getTokenCookie()
       // const decoded = await verifyToken(token)
       const userMetadata = await magic?.user.getMetadata()
-      console.log({ userMetadata })
       if (userMetadata) {
         const userId = userMetadata.issuer
         setFavouritedVideos(await getFavouritedVideos(token, userId!))
