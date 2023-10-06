@@ -11,6 +11,7 @@ const Card = (props: any) => {
     size = 'medium',
     id,
     title,
+    shouldScale,
   } = props
   const classMap = {
     small: styles.smItem,
@@ -20,6 +21,9 @@ const Card = (props: any) => {
 
   const [imgSrc, setImgSrc] = useState(imgUrl)
   const scale = id === 0 ? { scaleY: 1.1 } : { scale: 1.1 }
+  if(shouldScale==false)
+  console.log({shouldScale})
+  const shouldHover = shouldScale && { whileHover: { ...scale } }
   const onErrorHandler = () => {
     setImgSrc(
       'https://images.unsplash.com/photo-1485846234645-a62644f84728?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1159&q=80'
@@ -30,8 +34,8 @@ const Card = (props: any) => {
     <div className={styles.container}>
       <motion.div
         className={cls(styles.imageWrapper, Object(classMap)[size])}
-        whileHover={scale}
-      >       
+        {...shouldHover}
+      >
         <Image
           onError={onErrorHandler}
           src={imgSrc}

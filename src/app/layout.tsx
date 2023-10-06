@@ -33,8 +33,12 @@ export default function RootLayout({
   const router = useRouter()
   useEffect(() => {
     const isLoggedInCheck = async () => {
-      const isLoggedInResult = await magic?.user.isLoggedIn()
-      setIsLoggedIn(isLoggedInResult ? isLoggedInResult : false)
+      try {
+        const isLoggedInResult = await magic?.user.isLoggedIn()
+        setIsLoggedIn(isLoggedInResult ? isLoggedInResult : false)  
+      } catch (error) {
+        
+      }
     }
 
     isLoggedInCheck()
@@ -47,17 +51,32 @@ export default function RootLayout({
     }
   }, [isLoggedIn, router])
 
+  // return (
+  //   <html lang="en">
+  //     <head>
+  //       <title>discover videos</title>
+  //     </head>
+  //     {isLoading ? (
+  //       <body>
+  //         <Loading />
+  //       </body>
+  //     ) : (
+  //       <body className={roboto_slab.className}>
+  //         <div id="__next">{children}</div>
+  //       </body>
+  //     )}
+  //   </html>
+  // )
+
   return (
     <html lang="en">
-      {isLoading ? (
-        <body>
-          <Loading />
-        </body>
-      ) : (
-        <body className={roboto_slab.className}>
+      <head>
+        <title>discover videos</title>
+      </head>
+      <body className={roboto_slab.className}>
           <div id="__next">{children}</div>
         </body>
-      )}
     </html>
   )
+
 }

@@ -1,4 +1,5 @@
 import videoTestData from '../store/videos.json'
+import { getStatsByFavourited, getStatsByWatched } from './hasura'
 
 export const getVideos = async (
   search: string,
@@ -47,15 +48,15 @@ const getCommonVideos = async (url: string, init?: RequestInit) => {
   const input = `${baseUrl}/${url}&key=${youtubeAPIKey}`
   let response: any = null
   if (!!isDev) {
-    if(url.includes('&id=')){
-      const id=url.substring(url.indexOf('&id=')+4)
+    if (url.includes('&id=')) {
+      const id = url.substring(url.indexOf('&id=') + 4)
       response = {
         result: videosMapper(videoTestData.items).filter(
           (video) => video.id == id
         ),
-      }  
-    }else{
-      response={result:videosMapper(videoTestData.items)}
+      }
+    } else {
+      response = { result: videosMapper(videoTestData.items) }
     }
   } else {
     response = await fetch(input, init)
@@ -69,6 +70,34 @@ const getCommonVideos = async (url: string, init?: RequestInit) => {
       )
   }
   return response.result
+}
+
+export const getWatchItAgainVideos = async (token: string, userId: string) => {
+  const jwtToken = `Bearer ${token}`
+  const result = await getStatsByWatched(jwtToken, userId)
+  console.log({ result })
+  const videos = [...result.data.stats]
+  console.log({ videos })
+  return videos.map((video) => {
+    return {
+      id: video.videoId,
+      imgUrl: `https://i.ytimg.com/vi/${video.videoId}/maxresdefault.jpg`,
+    }
+  })
+}
+
+export const getFavouritedVideos = async (token: string, userId: string) => {
+  const jwtToken = `Bearer ${token}`
+  const result = await getStatsByFavourited(jwtToken, userId)
+  console.log({ result })
+  const videos = [...result.data.stats]
+  console.log({ videos })
+  return videos.map((video) => {
+    return {
+      id: video.videoId,
+      imgUrl: `https://i.ytimg.com/vi/${video.videoId}/maxresdefault.jpg`,
+    }
+  })
 }
 
 const videosMapper = (videos: any[]) => {

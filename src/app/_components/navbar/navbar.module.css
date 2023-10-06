@@ -1,5 +1,5 @@
 .container {
-  @apply fixed z-50 w-full top-0 bg-gradient-to-b from-black via-black/60 to-transparent;
+  @apply fixed z-[9999] w-full top-0 bg-gradient-to-b from-black via-black/60 to-transparent;
 }
 
 .wrapper {

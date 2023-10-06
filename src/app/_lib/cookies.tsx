@@ -11,3 +11,8 @@ export const setTokenCookie = (token: string) => {
   })
   return setCookie
 }
+
+export const getTokenCookie = () => {
+  const getCookie = cookie.parse(document.cookie)
+  return getCookie.token ?? null
+}

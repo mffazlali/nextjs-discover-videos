@@ -5,6 +5,7 @@ import Logo from '../_components/logo/logo'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { magic } from '../_lib/magic-client'
+import { loginService } from '../_services/login.services'
 
 export const metadata: Metadata = {
   title: 'discover videos',
@@ -33,7 +34,8 @@ const SignIn = () => {
         await magic?.auth.loginWithEmailOTP({ email })
         const isLoggedInResult=await isLoggedIn()
         if (isLoggedInResult) {
-          const didToken=magic?.user.getIdToken()
+          const didToken = await magic?.user.getIdToken()
+          const result =await loginService(didToken)
           setIsLoading(false)
           router.push('/')
         } else {

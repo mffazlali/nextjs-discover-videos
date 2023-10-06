@@ -83,7 +83,7 @@ const Page = ({ params }: { params: { id: string } }) => {
       setToggleLike(!toggleLike)
       setToggleDisLike(toggleLike)
       const favourited = toggleLike ? 0 : 1
-      const result = await setStatsService({ videoId, favourited })
+      const result = await setStatsService({ videoId, favourited, watched: true })
       console.log({ result })
     }
   }
@@ -93,7 +93,7 @@ const Page = ({ params }: { params: { id: string } }) => {
       setToggleDisLike(!toggleDisLike)
       setToggleLike(toggleDisLike)
       const favourited = toggleDisLike ? 1 : 0
-      const result = await setStatsService({ videoId, favourited })
+      const result = await setStatsService({ videoId, favourited, watched: true })
       console.log({ result })
     }
   }

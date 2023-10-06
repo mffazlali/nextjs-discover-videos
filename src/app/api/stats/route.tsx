@@ -1,17 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server'
 import jwt, { JwtPayload } from 'jsonwebtoken'
 import { getStatsByVideoId, insertStats, updateStats } from '@/app/_lib/hasura'
+import { verifyToken } from '@/app/_lib/utils'
 
 export async function GET(req: NextRequest) {
   try {
     const token = req.cookies!.get('token')!.value
-    const decodedToken = jwt.verify(
-      token,
-      process.env.NEXT_PUBLIC_HUSARA_JWT!
-    )
+    const decodedToken = await verifyToken(token)
     if (decodedToken) {
       const jwtToken = `Bearer ${token}`
-      const userId = await (decodedToken as JwtPayload).issuer
+      const userId = decodedToken.issuer
       const videoId = await req.nextUrl.searchParams.get('videoId')!
       const findedStats = await getStatsByVideoId(jwtToken, userId, videoId)
       const doesStatsExist = [...findedStats.data.stats].length > 0
@@ -26,7 +24,7 @@ export async function GET(req: NextRequest) {
         return NextResponse.json(
           { result: null },
           {
-            status: 403,
+            status: 404,
           }
         )
       }
@@ -48,14 +46,14 @@ export async function POST(req: NextRequest) {
     console.log({ req })
     const token = req.cookies!.get('token')!.value
     console.log({ token })
-    const decodedToken = jwt.verify(token, process.env.NEXT_PUBLIC_HUSARA_JWT!)
+    const decodedToken=await verifyToken(token)
     console.log({ decodedToken })
     if (decodedToken) {
       const jwtToken = `Bearer ${token}`
-      const userId = await (decodedToken as JwtPayload).issuer
+      const userId = decodedToken.issuer
       const res = await req.json()
-      console.log({req:res})
-      let { videoId, favourited, watched = false } = res.stats
+      console.log({ req: res })
+      let { videoId, favourited, watched = false } = res
       const findedStats = await getStatsByVideoId(jwtToken, userId, videoId)
       const stats = {
         userId,
@@ -63,7 +61,7 @@ export async function POST(req: NextRequest) {
         favourited,
         watched,
       }
-      console.log({findedStats})
+      console.log({ findedStats })
       const doesStatsExist = [...findedStats.data.stats].length > 0
       let result = null
       if (doesStatsExist) {

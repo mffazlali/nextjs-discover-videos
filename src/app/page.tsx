@@ -4,10 +4,16 @@ import styles from './styles.module.css'
 import Banner from './_components/banner/banner'
 import Navbar from './_components/navbar/navbar'
 import SectionCards from './_components/cards/section-cards'
-import { getPopularVideos, getVideos, getYoutubeVideoById } from './_lib/videos'
-import { magic } from './_lib/magic-client'
+import {
+  getPopularVideos,
+  getVideos,
+  getWatchItAgainVideos,
+  getYoutubeVideoById,
+} from './_lib/videos'
 import { useEffect, useState } from 'react'
-import { loginService } from './_services/login.services'
+import { verifyToken } from './_lib/utils'
+import { getTokenCookie } from './_lib/cookies'
+import { magic } from './_lib/magic-client'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -15,34 +21,38 @@ export const metadata: Metadata = {
 }
 
 const Page = (props: any) => {
+  console.log({ props })
   const [bannerVideo, setBannerVideo] = useState<any>({})
   const [disneyVideos, setDisneyVideos] = useState([])
   const [marvelVideos, setMarvelVideos] = useState([])
   const [travelVideos, setTravelVideos] = useState([])
   const [popularVideos, setPopularVideos] = useState([])
+  const [watchItVideos, setWatchItVideos] = useState<any[]>([])
 
   useEffect(() => {
     const initVideos = async () => {
       setBannerVideo(
-        ([...await getYoutubeVideoById('PoJi4V6Q2AI', {
-          cache: 'force-cache',
-          revalidate: 60,
-        })][0])
+        [
+          ...(await getYoutubeVideoById('PoJi4V6Q2AI', {
+            cache: 'force-cache',
+            revalidate: 60,
+          })),
+        ][0]
       )
+      const token = getTokenCookie()
       setDisneyVideos(await getVideos('disney teaser', { cache: 'no-store' }))
       setMarvelVideos(await getVideos('marvel teaser', { cache: 'no-store' }))
       setTravelVideos(await getVideos('travel', { cache: 'no-store' }))
       setPopularVideos(await getPopularVideos({ cache: 'no-store' }))
+      // const decoded=await verifyToken(token)
+      const userMetadata = await magic?.user.getMetadata()
+      console.log({ userMetadata })
+      if (userMetadata) {
+        const userId = userMetadata.issuer
+        setWatchItVideos(await getWatchItAgainVideos(token, userId!))
+      }
     }
     initVideos()
-
-    const userSignedIn = async () => {
-      const userMetadata = await magic?.user.getMetadata()
-      const didToken = await magic?.user.getIdToken()
-      loginService(didToken)
-    }
-
-    userSignedIn()
   }, [])
 
   return (
@@ -57,6 +67,11 @@ const Page = (props: any) => {
       <section className={styles.sectionCardWrapper}>
         <SectionCards title="disney" videos={disneyVideos} />
         <SectionCards title="marvel" videos={marvelVideos} size="small" />
+        <SectionCards
+          title="watch it again"
+          videos={watchItVideos}
+          size="small"
+        />
         <SectionCards title="travel" videos={travelVideos} size="large" />
         <SectionCards title="popular" videos={popularVideos} size="small" />
       </section>
