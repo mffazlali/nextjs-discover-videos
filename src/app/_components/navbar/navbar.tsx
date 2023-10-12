@@ -1,11 +1,10 @@
 'use client'
-import Link from 'next/link'
 import styles from './navbar.module.css'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import Logo from '../logo/logo'
 import { magic } from '@/app/_lib/magic-client'
-import useAsyncEffect from 'use-async-effect'
+import { removeCookie } from '@/app/_lib/cookies'
 const Navbar = (props: any) => {
   const router = useRouter()
   const [showDropdown, setShowDropDown] = useState(false)
@@ -29,16 +28,25 @@ const Navbar = (props: any) => {
   const handleLogout = async () => {
     const isLogout = await magic?.user.logout()
     if (isLogout) {
+      removeCookie()
       router.push('/login')
     }
   }
 
-  useAsyncEffect(async () => {
-    const userMetadata = await magic?.user.getMetadata()
-    if (userMetadata && userMetadata.email) {
-      setUsername(userMetadata.email)
+  useEffect(() => {
+    const getMetadata = async () => {
+      try {
+        const userMetadata = await magic?.user.getMetadata()
+        if (userMetadata && userMetadata.email) {
+          setUsername(userMetadata.email)
+        }  
+      } catch (error) {
+        
+      }
     }
-  }, [username])
+
+    getMetadata()
+  }, [])
 
   return (
     <div className={styles.container}>

@@ -16,3 +16,7 @@ export const getTokenCookie = () => {
   const getCookie = cookie.parse(document.cookie)
   return getCookie.token ?? null
 }
+
+export const removeCookie = () => {
+  document.cookie = ''
+}

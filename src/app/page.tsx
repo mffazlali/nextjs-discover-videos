@@ -39,15 +39,17 @@ const Page = (props: any) => {
         ][0]
       )
       const token = getTokenCookie()
-      setDisneyVideos(await getVideos('disney teaser', { cache: 'no-store' }))
-      setMarvelVideos(await getVideos('marvel teaser', { cache: 'no-store' }))
-      setTravelVideos(await getVideos('travel', { cache: 'no-store' }))
-      setPopularVideos(await getPopularVideos({ cache: 'no-store' }))
-      // const decoded=await verifyToken(token)
-      const userMetadata = await magic?.user.getMetadata()
-      if (userMetadata) {
-        const userId = userMetadata.issuer
-        setWatchItVideos(await getWatchItAgainVideos(token, userId!))
+      if(token){
+        setDisneyVideos(await getVideos('disney teaser', { cache: 'no-store' }))
+        setMarvelVideos(await getVideos('marvel teaser', { cache: 'no-store' }))
+        setTravelVideos(await getVideos('travel', { cache: 'no-store' }))
+        setPopularVideos(await getPopularVideos({ cache: 'no-store' }))
+        // const decoded=await verifyToken(token)
+        const userMetadata = await magic?.user.getMetadata()
+        if (userMetadata) {
+          const userId = userMetadata.issuer
+          setWatchItVideos(await getWatchItAgainVideos(token, userId!))
+        }  
       }
     }
     initVideos()

@@ -3,10 +3,6 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Roboto_Slab, Roboto_Mono } from 'next/font/google'
 import 'material-icons/iconfont/material-icons.css'
-import { magic } from './_lib/magic-client'
-import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
-import Loading from './_components/loading/loading'
 
 const roboto_slab = Roboto_Slab({
   subsets: ['latin'],
@@ -28,46 +24,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const [isLoading, setIsLoading] = useState(false)
-  const [isLoggedIn, setIsLoggedIn] = useState(true)
-  const router = useRouter()
-  useEffect(() => {
-    const isLoggedInCheck = async () => {
-      try {
-        const isLoggedInResult = await magic?.user.isLoggedIn()
-        setIsLoggedIn(isLoggedInResult ? isLoggedInResult : false)  
-      } catch (error) {
-        
-      }
-    }
-
-    isLoggedInCheck()
-    if (isLoggedIn) {
-      router.push('/')
-      setIsLoading(false)
-    } else {
-      router.push('/login')
-      setIsLoading(false)
-    }
-  }, [isLoggedIn, router])
-
-  // return (
-  //   <html lang="en">
-  //     <head>
-  //       <title>discover videos</title>
-  //     </head>
-  //     {isLoading ? (
-  //       <body>
-  //         <Loading />
-  //       </body>
-  //     ) : (
-  //       <body className={roboto_slab.className}>
-  //         <div id="__next">{children}</div>
-  //       </body>
-  //     )}
-  //   </html>
-  // )
-
+  
   return (
     <html lang="en">
       <head>
